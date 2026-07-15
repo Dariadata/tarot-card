@@ -1,29 +1,23 @@
 /* =========================================================
-   БАЗА ДАННЫХ КАРТ ТАРО
+   БАЗА ДАННЫХ КАРТ ТАРО (Только картинки и предсказания)
 ========================================================= */
 
 const tarotCards = {
     "empress": {
-        title: "Императрица",
-        subtitle: "Аркан плодородия, созидания и жизненной силы...",
-        image: "images/front.png", // оставляем front.png, так как Императрица у тебя уже загружена!
-        prediction: "✨ Императрица сулит вам расцвет сил, изобилие и успех в любых начинаниях! ✨"
+        image: "images/front.png", // Императрица
+        prediction: "✨ Вам выпала Императрица: вас ожидает период расцвета сил, изобилия и успеха в делах! ✨"
     },
     "star": {
-        title: "Звезда",
-        subtitle: "Аркан надежды, вдохновения и ясного будущего...",
-        image: "images/star.png",
-        prediction: "✨ Звезда освещает ваш путь. Доверьтесь интуиции, ваши мечты начинают сбываться! ✨"
+        image: "images/star.png", // Звезда
+        prediction: "✨ Вам выпала Звезда: впереди время надежды, вдохновения и ясного пути. Мечты начинают сбываться! ✨"
     },
     "chariot": {
-        title: "Колесница",
-        subtitle: "Аркан победы, целеустремленности и контроля...",
-        image: "images/chariot.png",
-        prediction: "✨ Колесница несёт вас к триумфу. Возьмите бразды правления в свои руки и двигайтесь вперёд! ✨"
+        image: "images/chariot.png", // Колесница
+        prediction: "✨ Вам выпала Колесница: впереди триумф и победа. Возьмите бразды правления в свои руки! ✨"
     }
 };
 
-// Алиасы (сопоставляем цифры 1, 2, 3 с названиями карт для удобства ссылок)
+// Сопоставляем цифры из ссылки с картами
 const aliases = {
     "1": "empress",
     "2": "star",
@@ -32,45 +26,41 @@ const aliases = {
 
 
 /* =========================================================
-   ОПРЕДЕЛЕНИЕ КАРТЫ ПО ССЫЛКЕ (Query-параметры)
+   ОПРЕДЕЛЕНИЕ КАРТЫ ПО ССЫЛКЕ
 ========================================================= */
 
 const urlParams = new URLSearchParams(window.location.search);
-let cardKey = urlParams.get('card') || "empress"; // По умолчанию открываем Императрицу
+let cardKey = urlParams.get('card') || "empress"; 
 
 cardKey = cardKey.toLowerCase();
 
-// Если в ссылке передали цифру (1, 2 или 3), заменяем её на название карты
 if (aliases[cardKey]) {
     cardKey = aliases[cardKey];
 }
 
-// Если передали несуществующую карту, сбрасываем на Императрицу
 if (!tarotCards[cardKey]) {
-    cardKey = "empress";
+    cardKey = "empress"; // Если карта не найдена, показываем Императрицу
 }
 
 const currentCard = tarotCards[cardKey];
 
 
 /* =========================================================
-   ELEMENTS & DYNAMIC FILL (Заполнение контента карты)
+   ДИНАМИЧЕСКАЯ ПОДМЕНА КАРТИНКИ
 ========================================================= */
 
 const card = document.getElementById("card");
 const button = document.getElementById("flipButton");
 const message = document.getElementById("message");
 
-// Динамически подменяем тексты и изображение лицевой стороны карты на сайте
-document.querySelector("h1").innerText = currentCard.title;
-document.querySelector(".subtitle").innerText = currentCard.subtitle;
+// Меняем ТОЛЬКО картинку лицевой стороны. Заголовки h1 и subtitle НЕ трогаем!
 document.querySelector(".front img").src = currentCard.image;
 
 let opened = false;
 
 
 /* =========================================================
-   TOGGLE CARD (Переворот карты)
+   ЛОГИКА ПЕРЕВОРОТА
 ========================================================= */
 
 function toggleCard(){
@@ -98,7 +88,7 @@ function toggleCard(){
 
         setTimeout(() => {
             if (opened) { 
-                // Выводим уникальное предсказание
+                // Показываем предсказание только после переворота
                 message.innerHTML = currentCard.prediction;
             }
         }, 900);
@@ -107,7 +97,7 @@ function toggleCard(){
 
 
 /* =========================================================
-   CLICK LISTENERS
+   ОБРАБОТЧИКИ СОБЫТИЙ
 ========================================================= */
 
 card.addEventListener("click", toggleCard);
@@ -115,7 +105,7 @@ button.addEventListener("click", toggleCard);
 
 
 /* =========================================================
-   FLOATING PARTICLES
+   ФОНОВЫЕ ЧАСТИЦЫ
 ========================================================= */
 
 const particles = document.getElementById("particles");
@@ -142,7 +132,7 @@ setInterval(createParticle, 300);
 
 
 /* =========================================================
-   3D TILT EFFECT
+   3D ЭФФЕКТ НАКЛОНА (МЫШЬ)
 ========================================================= */
 
 const scene = document.querySelector(".scene");
@@ -168,7 +158,7 @@ scene.addEventListener("mouseleave", () => {
 
 
 /* =========================================================
-   MOBILE TOUCH TILT
+   3D ЭФФЕКТ НАКЛОНА (СЕНСОР)
 ========================================================= */
 
 scene.addEventListener("touchmove", (e) => {
