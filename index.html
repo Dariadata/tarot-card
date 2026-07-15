@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Tarot</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Фон -->
+    <div class="space"></div>
+
+    <!-- Светящиеся частицы -->
+    <div id="particles"></div>
+
+    <!-- Основной блок -->
+    <main>
+
+        <h1>
+            Коснитесь карты
+        </h1>
+
+        <p class="subtitle">
+            чтобы узнать своё послание
+        </p>
+
+        <!-- Карта -->
+        <div class="scene">
+
+            <div class="card" id="card">
+
+                <!-- Лицевая сторона -->
+
+                <div class="face front">
+
+                    <img
+                        src="images/front.png"
+                        alt="Front">
+
+                </div>
+
+                <!-- Рубашка -->
+
+                <div class="face back">
+
+                    <img
+                        src="images/back.png"
+                        alt="Back">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button id="flipButton">
+
+            ✨ Открыть карту
+
+        </button>
+
+        <p id="message">
+
+            Ваше послание уже ждёт вас...
+
+        </p>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
